@@ -11,6 +11,9 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
+
+
+config.action_mailer.raise_delivery_errors = false
   # Show full error reports.
   config.consider_all_requests_local = true
 
@@ -37,6 +40,21 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.perform_caching = false
+
+
+#  config.action_mailer.delivery_method = :smtp
+#  config.action_mailer.smtp_setings = {
+#    address:               'live.smtp.mailtrap.io',
+#    port:                   587,
+#    domain:               'd0yv36k436upopur',
+#    user_name:           'api',
+#    password:           'c4dc7d0edc2790f70e82034173ec9b1b',
+#    authentication:     'plan',
+#    enable_starttls_auto: true
+
+#  }
+
+
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

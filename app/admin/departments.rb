@@ -6,13 +6,33 @@ ActiveAdmin.register Department do
   # Uncomment all parameters which should be permitted for assignment
   #
   permit_params :department_name
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:department_name]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
+  
+  form do |f|
+    f.inputs 'Your Model' do
+      f.input :department_name
+      # Add other form inputs as needed
+    end
+    f.actions
+  end
+
+  controller do
+    def create
+      super do |success, failure|
+        failure.html do
+          flash.now[:error] = 'There was an error creating the record.'
+          render :new
+        end
+      end
+    end
+
+    def update
+      super do |success, failure|
+        failure.html do
+          flash.now[:error] = 'There was an error updating the record.'
+          render :edit
+        end
+      end
+    end
+  end
   
 end

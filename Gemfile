@@ -64,3 +64,5 @@ gem "sassc-rails", "~> 2.1"
 gem "faker", "~> 2.22"
 
 gem 'active_admin_role'
+
+gem 'arctic_admin'

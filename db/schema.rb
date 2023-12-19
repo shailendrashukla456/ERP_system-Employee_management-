@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_12_19_055650) do
+ActiveRecord::Schema.define(version: 2023_12_19_080958) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -53,6 +53,8 @@ ActiveRecord::Schema.define(version: 2023_12_19_055650) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "role", limit: 1, default: 0, null: false
+    t.integer "department_id"
+    t.index ["department_id"], name: "index_admin_users_on_department_id"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
@@ -61,6 +63,18 @@ ActiveRecord::Schema.define(version: 2023_12_19_055650) do
     t.string "department_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "educations", force: :cascade do |t|
+    t.integer "admin_user_id", null: false
+    t.string "qualification"
+    t.string "institute_name"
+    t.date "start_year"
+    t.date "end_year"
+    t.string "specialization"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["admin_user_id"], name: "index_educations_on_admin_user_id"
   end
 
   create_table "employee_types", force: :cascade do |t|
@@ -75,4 +89,29 @@ ActiveRecord::Schema.define(version: 2023_12_19_055650) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "profiles", force: :cascade do |t|
+    t.string "name"
+    t.string "contact"
+    t.string "address"
+    t.integer "department_id", null: false
+    t.integer "admin_user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["admin_user_id"], name: "index_profiles_on_admin_user_id"
+    t.index ["department_id"], name: "index_profiles_on_department_id"
+  end
+
+  create_table "staff_experiences", force: :cascade do |t|
+    t.string "total_experience"
+    t.string "certificate"
+    t.integer "admin_user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["admin_user_id"], name: "index_staff_experiences_on_admin_user_id"
+  end
+
+  add_foreign_key "educations", "admin_users"
+  add_foreign_key "profiles", "admin_users"
+  add_foreign_key "profiles", "departments"
+  add_foreign_key "staff_experiences", "admin_users"
 end

@@ -1,13 +1,16 @@
 ActiveAdmin.register AdminUser do
   role_changeable
-  permit_params :email, :password, :password_confirmation
+  permit_params :email, :password, :password_confirmation, :role, :department_id
 
   index do
     selectable_column
     id_column
     column :email
-    column :current_sign_in_at
-    column :sign_in_count
+    column :department_id do |obj|
+      department = Department.find_by(id: obj.department_id)
+      department.department_name if department
+    end
+    column :role 
     column :created_at
     actions
   end
@@ -23,6 +26,7 @@ ActiveAdmin.register AdminUser do
       f.input :password
       f.input :password_confirmation
       f.input :role
+      f.input :department, as: :select, collection: Department.where.not(department_name: 'admin').map{ |a| [a.department_name, a.id] }
     end
     f.actions
   end
