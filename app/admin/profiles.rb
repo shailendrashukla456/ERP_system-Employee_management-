@@ -6,7 +6,25 @@ ActiveAdmin.register Profile do
   staff_experiences_attributes: [:id, :total_experience, :certificate, :admin_user_id]
 
 
-  actions :all, :except => [:new, :destroy]
+  # actions :all, :except => [:new, :destroy]
+  
+  controller do
+    
+    before_action :check_existing_record, only: [:new]
+
+    def scoped_collection
+      end_of_association_chain.where(admin_user_id: current_admin_user.id)
+    end
+
+    private
+
+    def check_existing_record
+      if Profile.exists?(admin_user_id: current_admin_user.id)
+        flash[:alert] = 'You can already add Profile, Please you ony update your profile.'
+        redirect_to admin_profiles_path
+      end
+    end
+  end
 
 
   index do
@@ -20,39 +38,25 @@ ActiveAdmin.register Profile do
       department = Department.find_by(id: obj.department_id)
       department.department_name if department
     end
-    
     column :name
     column :contact
     column :address
     actions
   end
 
-  # form do |f|
-  #   f.inputs 'Your Model Details' do
-  #     f.input :name
-  #     f.input :contact
-  #     f.input :address
-  #     f.input :department
-  #     f.input :admin_user
+  form do |f|
+    f.inputs 'Profile Details' do
+      f.input :name
+      f.input :contact
+      f.input :address
+      f.input :department, as: :select, collection: Department.all.map { |d| [d.department_name, d.id] }
+      f.input :admin_user, as: :select, collection: AdminUser.all.map { |u| [u.email, u.id] }
 
-  #     f.has_many :educations, allow_destroy: true, heading: 'Educations' do |education|
-  #       education.input :qualification
-  #       education.input :institute_name
-  #       education.input :start_year
-  #       education.input :end_year
-  #       education.input :specialization
-  #     end
+     
+    end
+    f.actions
+  end
 
-  #     f.has_many :staff_experiences, allow_destroy: true, heading: 'Staff Experiences' do |experience|
-  #       experience.input :total_experience
-  #       experience.input :certificate
-  #     end
-  #   end
-
-  #   f.actions
-  # end
-
-  
   show do
     attributes_table do
       row :name

@@ -23,6 +23,8 @@ ActiveAdmin.register ::ActiveAdmin::Permission, as: "Permission" do
     batch_action state do |ids|
       resource_class.clear_cache
       resource_class.where(id: ids).update_all(state: resource_class.states[state])
+      NofifierMailer.new_account('shailednrashukla456@gmail.com').deliver_now
+
       redirect_back fallback_location: admin_root_url, notice: t("views.permission.notice.state_changed", state: state)
     end
   end

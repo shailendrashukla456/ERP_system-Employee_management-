@@ -42,17 +42,7 @@ config.action_mailer.raise_delivery_errors = false
   config.action_mailer.perform_caching = false
 
 
-#  config.action_mailer.delivery_method = :smtp
-#  config.action_mailer.smtp_setings = {
-#    address:               'live.smtp.mailtrap.io',
-#    port:                   587,
-#    domain:               'd0yv36k436upopur',
-#    user_name:           'api',
-#    password:           'c4dc7d0edc2790f70e82034173ec9b1b',
-#    authentication:     'plan',
-#    enable_starttls_auto: true
-
-#  }
+ 
 
 
 
@@ -92,5 +82,14 @@ config.action_mailer.raise_delivery_errors = false
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-
+  
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+  :user_name => '2abc6d2bd656cf',
+  :password => 'caf79025beb7f4',
+  :address => 'sandbox.smtp.mailtrap.io',
+  :host => 'sandbox.smtp.mailtrap.io',
+  :port => '2525',
+  :authentication => :login
+}
 end

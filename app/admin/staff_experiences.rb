@@ -1,8 +1,27 @@
 ActiveAdmin.register StaffExperience do
-
- 
-   permit_params :total_experience, :certificate, :admin_user_id
   
+  menu priority: 0, label: 'Staff_Experience', if: proc { current_admin_user.role == 'staff' }
+
+   permit_params :total_experience, :certificate, :admin_user_id
+   
+   controller do
+    
+    before_action :check_existing_record, only: [:new]
+
+    def scoped_collection
+      end_of_association_chain.where(admin_user_id: current_admin_user.id)
+    end
+
+    private
+
+    def check_existing_record
+      if StaffExperience.exists?(admin_user_id: current_admin_user.id)
+        flash[:alert] = 'You can already insert Staff Experience record.'
+        redirect_to admin_staff_experiences_path
+      end
+    end
+  end
+
    index do
     selectable_column
     id_column

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_12_19_080958) do
+ActiveRecord::Schema.define(version: 2023_12_20_065457) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -83,6 +83,16 @@ ActiveRecord::Schema.define(version: 2023_12_19_080958) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "leave_requests", force: :cascade do |t|
+    t.integer "leave_type_id", null: false
+    t.date "from"
+    t.date "to"
+    t.boolean "approve"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["leave_type_id"], name: "index_leave_requests_on_leave_type_id"
+  end
+
   create_table "leave_types", force: :cascade do |t|
     t.string "leave_type"
     t.datetime "created_at", precision: 6, null: false
@@ -111,6 +121,7 @@ ActiveRecord::Schema.define(version: 2023_12_19_080958) do
   end
 
   add_foreign_key "educations", "admin_users"
+  add_foreign_key "leave_requests", "leave_types"
   add_foreign_key "profiles", "admin_users"
   add_foreign_key "profiles", "departments"
   add_foreign_key "staff_experiences", "admin_users"

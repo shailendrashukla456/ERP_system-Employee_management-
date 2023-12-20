@@ -5,6 +5,8 @@ ActiveAdmin.register Department do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
+  
+
   permit_params :department_name
   
   form do |f|
