@@ -5,20 +5,16 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+* Ruby version: ruby 2.6.5p114 (2019-10-01 revision 67812) [x86_64-linux]
 
-* System dependencies
+  Rails version: 6.1.7.6
 
-* Configuration
+* System dependencies :  'ubuntu 20.04' 
 
-* Database creation
+* Configuration  :  [x86_64-linux]
 
-* Database initialization
+* Database creation  : use datebase: 'sqlite3', '~> 1.4' , run cmd :-  rails db:create 
 
-* How to run the test suite
+* Database initialization : run cmd :- rails db:migrate, rails db:seed
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
-
-* ...
