@@ -13,6 +13,8 @@ Things you may want to cover:
 
 * Configuration  :  [x86_64-linux]
 
+ run cmd : - 'bundle isntall' for install using gem 
+
 * Database creation  : use datebase: 'sqlite3', '~> 1.4' , run cmd :-  rails db:create 
 
 * Database initialization : run cmd :- rails db:migrate, rails db:seed
